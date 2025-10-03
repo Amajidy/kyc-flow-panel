@@ -1,29 +1,45 @@
-@if (profile() !== null && !isLoading()){
+@if (profile() === null && isLoading()){
+    <div class="flex justify-center">
+      <div class="spinner spinner--lg"></div>
+    </div>
+} @else {
   <div class="flex justify-center">
     <div class="w-[622px] bg-white shadow-lg p-4 rounded-lg flex flex-col">
         <h1 class="font-semibold tracking-tight text-xl mb-6">اطلاعات کاربری</h1>
       <div class="flex flex-col gap-4">
         <div class="flex justify-between">
-          <span class="text-muted-foreground">asd</span>
-          <span class="text-muted-foreground">asd</span>
+          <span class="text-muted-foreground">نام شرکت</span>
+          <span class="text-muted-foreground">{{profile()?.companyName}}</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-muted-foreground">asd</span>
-          <span class="text-muted-foreground">asd</span>
+          <span class="text-muted-foreground">لینک بازگشتی</span>
+          <span class="text-muted-foreground">
+            <a [href]="profile()?.callbackUrl"> {{ profile()?.callbackUrl }} </a>
+          </span>
         </div>
         <div class="flex justify-between">
-          <span class="text-muted-foreground">asd</span>
-          <span class="text-muted-foreground">asd</span>
+          <span class="text-muted-foreground">شماره موبایل</span>
+          <span class="text-muted-foreground">
+            <a [href]="profile()?.callbackUrl"> {{ profile()?.adminMobileNumber }} </a>
+          </span>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-muted-foreground">Api Key</span>
+          <div class="flex items-center gap-4">
+            <span class="text-muted-foreground">{{ profile()?.apiKey }}</span>
+            <span class="inline-block cursor-pointer hover:bg-gray-300 hover:bg-opacity-20 p-1 rounded-lg" (click)="copy(profile()?.apiKey ?? '')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path>
+              </svg>
+            </span>
+          </div>
         </div>
         <div class="flex justify-between">
-          <span class="text-muted-foreground">asd</span>
-          <span class="text-muted-foreground">asd</span>
+          <span class="text-muted-foreground">تاریخ ایجاد</span>
+          <span class="text-muted-foreground">{{profile()?.createdAt | jalaliDate}}</span>
         </div>
       </div>
     </div>
-  </div>
-} @else {
-  <div class="flex justify-center">
-    <div class="spinner spinner--lg"></div>
   </div>
 }

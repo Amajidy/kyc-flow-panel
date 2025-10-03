@@ -1,12 +1,16 @@
-import {Component, computed, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {ProfileService} from "../../services/profile.service";
+import {JalaliDatePipe} from "../../pipes/jalali-date.pipe";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [
+    JalaliDatePipe
+  ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
   private _profileService = inject(ProfileService);
@@ -15,5 +19,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this._profileService.getProfile()
+  }
+
+  async copy(link:string){
+    console.log(link)
+    // this._clipboard.writeText(link);
+    try {
+      await navigator.clipboard.writeText(link);
+      console.log('successfully copied to clipboard')
+    } catch(err) {
+      console.log(err)
+    }
   }
 }
