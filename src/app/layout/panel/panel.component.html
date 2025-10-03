@@ -1,0 +1,40 @@
+<div class="flex w-screen h-screen">
+  <div class="h-full w-64 bg-[#242b38] p-2 text-[#d3d7de] flex flex-col">
+    <p class="text-indigo-600 px-4 py-5 text-2xl font-bold">پنل مدیریت</p>
+    <div>
+      <ul>
+        <li class="p-2 hover:bg-gray-100 hover:bg-opacity-25 rounded-lg">
+          <a routerLink="/profile" class="flex items-center gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-4 w-4">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>پروفایل</span>
+          </a>
+        </li>
+        <li class="p-2 hover:bg-gray-100 hover:bg-opacity-25 rounded-lg">
+          <a routerLink="/reports" class="flex items-center gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text h-4 w-4">
+              <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+              <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+              <path d="M10 9H8"></path>
+              <path d="M16 13H8"></path>
+              <path d="M16 17H8"></path>
+            </svg>
+            <span>گزارش ها</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="mt-auto bg-[#d3d7de] text-[#242b38] p-2 text-center mb-4 mx-2 rounded-lg">
+      خروج
+    </div>
+  </div>
+  <div class="flex flex-col flex-1">
+    <div class="w-full h-16 flex items-center p-6 border-b border-gray-300">داشبورد مدیریت</div>
+    <div class="h-full overflow-y-auto p-6">
+      <router-outlet />
+    </div>
+  </div>
+
+</div>

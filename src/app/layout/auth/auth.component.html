@@ -1,0 +1,24 @@
+<div class="w-screen h-screen flex justify-center items-center">
+  <div class="bg-white shadow-md rounded-md p-6 flex flex-col gap-2">
+    <h1 class="bg-clip-text text-3xl font-bold text-indigo-600 tracking-widest">
+        پنل مدیریت
+    </h1>
+    <p class="text-sm text-muted-foreground mt-1">
+        با شماره تلفن خود وارد شوید.
+    </p>
+    <div class="w-80 tab-container relative flex items-center rounded-lg p-2">
+        <div class="absolute w-1/2 bg-white h-3/4 py-2 rounded-lg transition-all"
+          [style.left]="routeStatus() ? '2%' : '48%'"
+        ></div>
+        <div class="w-full text-center z-20 cursor-pointer" (click)="changeRoute('register')">
+          <p class="z-20 select-none">ثبت نام</p>
+        </div>
+        <div class="w-full text-center z-20 cursor-pointer" (click)="changeRoute('login')">
+          <p class="z-20 select-none">ورود</p>
+        </div>
+    </div>
+    <div class="mt-2">
+      <router-outlet />
+    </div>
+  </div>
+</div>

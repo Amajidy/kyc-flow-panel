@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'vazir';
+  src: url('../public/fonts/Vazirmatn-Medium.woff2') format('woff2');
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'vazir';
+  direction: rtl;
+  background-color: rgb(237 239 242);
+  color: rgb(20 24 31);
+}
+
+p {
+  margin: 0;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+
+// spinner.scss
+
+.spinner {
+  --size: 48px;
+  --thickness: calc(var(--size) / 8);
+  --color: #4f46e5;
+  --muted: rgba(0, 0, 0, 0.32);
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  box-sizing: border-box;
+
+  border: var(--thickness) solid var(--muted);
+  border-top-color: currentColor;
+  animation: spinner-spin 0.85s linear infinite;
+
+  &.spinner--sm {
+    --size: 24px;
+  }
+  &.spinner--md {
+    --size: 36px;
+  }
+  &.spinner--lg {
+    --size: 72px;
+  }
+}
+
+// انیمیشن
+@keyframes spinner-spin {
+  to { transform: rotate(360deg); }
+}
+

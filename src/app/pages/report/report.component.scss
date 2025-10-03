@@ -1,0 +1,15 @@
+th{
+  color: hsl(219.13deg 10.04% 44.9%);
+  @apply font-normal;
+}
+th, td {
+  @apply text-sm;
+}
+
+td {
+  .badge {
+    border-color: rgb(219, 223, 230);
+    padding: 2px 10px;
+    @apply text-xs border rounded-lg text-black;
+  }
+}

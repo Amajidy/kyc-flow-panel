@@ -1,0 +1,26 @@
+.otp-wrap {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+
+.otp-input {
+  width: 44px;
+  height: 56px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  outline: none;
+}
+
+
+.otp-input:focus {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  box-shadow: 0 0 0 3px rgba(107,142,35,0.12);
+}
+
+.otp-container{
+  direction: ltr;
+}

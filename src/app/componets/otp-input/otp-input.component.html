@@ -1,0 +1,19 @@
+
+    <div class="otp-container flex items-center justify-between">
+      @for (digit of otp; track $index){
+      <input
+        #otpInput
+        class="otp-input"
+        type="tel"
+        maxlength="1"
+        [autocomplete]="autocomplete"
+        [value]="otp[$index]"
+        (input)="onInput($event, $index); onSmsAutofill($event)"
+        (keydown)="onKeyDown($event, $index)"
+        (paste)="onPaste($event)"
+        [attr.aria-label]="'OTP digit ' + ($index + 1)"
+        [required]="true"
+        [tabindex]="$index + 1"
+      >
+      }
+    </div>
