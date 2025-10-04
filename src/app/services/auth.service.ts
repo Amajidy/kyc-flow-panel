@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {baseUrl} from "../../environment/environment";
+import {baseUrl} from "../environment/environment";
 import {Login, LoginResponse, Register} from "../entities/auth";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
@@ -56,11 +56,15 @@ export class AuthService {
   loginWithOTP(login: Login) {
     this.isLoginLoading.set(true)
     this.loginWithOTPAction(login).then(res => {
-      console.log(res);
       this.setToken(res.token);
       this._router.navigate(['/reports']);
     }).finally(() => {
       this.isLoginLoading.set(true);
     })
+  }
+
+  logout() {
+    this._router.navigate(['/auth']);
+    localStorage.removeItem("token");
   }
 }

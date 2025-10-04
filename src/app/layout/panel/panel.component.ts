@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-panel',
@@ -12,5 +13,9 @@ import {RouterLink, RouterOutlet} from "@angular/router";
   styleUrl: './panel.component.scss'
 })
 export class PanelComponent {
+  private _authService = inject(AuthService);
 
+  logout(){
+    this._authService.logout();
+  }
 }
