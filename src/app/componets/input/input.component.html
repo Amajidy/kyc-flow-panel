@@ -9,5 +9,7 @@
     id="nationalId"
     [attr.inputmode]="inputMode()"
     [readOnly]="readonly()"
+    (input)="handleInput($event)"
+    (blur)="handleBlur()"
   >
 </div>

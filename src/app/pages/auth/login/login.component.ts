@@ -4,7 +4,7 @@ import {ButtonComponent} from "../../../componets/button/button.component";
 import {Login} from "../../../entities/auth";
 import {OtpInputComponent} from "../../../componets/otp-input/otp-input.component";
 import {AuthService} from "../../../services/auth.service";
-import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
 
 
@@ -25,18 +25,17 @@ export class LoginComponent {
   private _authService = inject(AuthService);
 
   loginForm = new FormGroup({
-    mobileNumber: new FormControl<string>('', [Validators.required, Validators.pattern(/^09\d{9}$/), Validators.nullValidator]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern(/^09\d{9}$/)]),
     otpCode: new FormControl('', [Validators.minLength(6), Validators.maxLength(6)]),
-  })
-
-  phoneControl = this.loginForm.controls.mobileNumber
+  });
 
   isLoading = computed(() => this._authService.isLoginLoading())
 
   otpMustBeShown = computed(() => this._authService.isOTPNeeded())
 
   login() {
-    if (this.loginForm.invalid) return;
+    // if (this.loginForm.invalid) return;
+    console.log(this.loginForm)
     const loginTemp: Login = {
       mobileNumber: this.loginForm.controls.mobileNumber.value ?? '',
       otpCode: this.loginForm.controls.otpCode.value ?? ''

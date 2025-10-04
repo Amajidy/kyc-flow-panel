@@ -29,7 +29,7 @@ export class RegisterComponent {
     });
 
     register() {
-      if (this.registerForm.invalid) return;
+      // if (this.registerForm.invalid) return;
 
       const registerTemp: Register = {
         callbackUrl: this.registerForm.controls.callbackUrl.value ?? '',
