@@ -6,7 +6,7 @@
   @if (otpMustBeShown()){
     <app-otp-input [length]="6" (complete)="onComplete($event)"></app-otp-input>
   }
-  <app-button class="mt-2 w-full flex items-center justify-center" (click)="login()" [disabled]="loginForm.invalid || isLoading()">
+  <app-button class="mt-2 w-full flex items-center justify-center" (click)="login()" [disabled]="(!otpMustBeShown() && phoneControl.invalid) || (otpMustBeShown() && loginForm.invalid) || isLoading()">
     @if (isLoading()){
       <div class="spinner spinner--sm"></div>
     } @else {

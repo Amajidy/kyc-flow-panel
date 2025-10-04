@@ -48,8 +48,6 @@ export class AuthService {
     });
   }
 
-
-
   async loginWithOTPAction(login: Login) {
     return await firstValueFrom(this._http.post<LoginResponse>(baseUrl + 'auth/company/otp/verify', login))
   }

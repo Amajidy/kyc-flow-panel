@@ -29,6 +29,8 @@ export class LoginComponent {
     otpCode: new FormControl('', [Validators.minLength(6), Validators.maxLength(6)]),
   })
 
+  phoneControl = this.loginForm.controls.mobileNumber
+
   isLoading = computed(() => this._authService.isLoginLoading())
 
   otpMustBeShown = computed(() => this._authService.isOTPNeeded())
