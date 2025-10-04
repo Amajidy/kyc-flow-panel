@@ -1,11 +1,12 @@
+<form [formGroup]="loginForm">
 <div class="flex flex-col gap-4">
-  <app-input [(value)]="loginForm().mobileNumber" [disabled]="otpMustBeShown()" [readonly]="otpMustBeShown()" inputMode="numeric">
+  <app-input formControlName="mobileNumber" [disabled]="otpMustBeShown()" [readonly]="otpMustBeShown()" inputMode="numeric">
     شماره موبایل
   </app-input>
   @if (otpMustBeShown()){
     <app-otp-input [length]="6" (complete)="onComplete($event)"></app-otp-input>
   }
-  <app-button class="mt-2 w-full flex items-center justify-center" (click)="login()" [disabled]="isLoading()">
+  <app-button class="mt-2 w-full flex items-center justify-center" (click)="login()" [disabled]="loginForm.invalid || isLoading()">
     @if (isLoading()){
       <div class="spinner spinner--sm"></div>
     } @else {
@@ -13,3 +14,4 @@
     }
   </app-button>
 </div>
+</form>

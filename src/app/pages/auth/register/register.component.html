@@ -1,17 +1,17 @@
-<div class="flex flex-col gap-2">
-  <app-input [(value)]="registerForm().adminMobileNumber">
+<form [formGroup]="registerForm" class="flex flex-col gap-2" (submit)="register()">
+  <app-input formControlName="adminMobileNumber">
     شماره موبایل
   </app-input>
-  <app-input [(value)]="registerForm().companyName">
+  <app-input formControlName="companyName">
     نام شرکت
   </app-input>
-  <app-input [(value)]="registerForm().adminEmail">
+  <app-input formControlName="adminEmail">
     ایمیل
   </app-input>
-  <app-input [(value)]="registerForm().callbackUrl">
+  <app-input formControlName="callbackUrl">
     لینک بازگشتی
   </app-input>
 
 
-  <app-button class="mt-2 w-full" (click)="register()">ثبت نام</app-button>
-</div>
+  <app-button class="mt-2 w-full" type="submit">ثبت نام</app-button>
+</form>

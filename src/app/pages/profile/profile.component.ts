@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {ProfileService} from "../../services/profile.service";
 import {JalaliDatePipe} from "../../pipes/jalali-date.pipe";
+import {Profile} from "../../entities/profile";
 
 @Component({
   selector: 'app-profile',
@@ -22,8 +23,6 @@ export class ProfileComponent implements OnInit {
   }
 
   async copy(link:string){
-    console.log(link)
-    // this._clipboard.writeText(link);
     try {
       await navigator.clipboard.writeText(link);
       console.log('successfully copied to clipboard')
