@@ -34,8 +34,6 @@ export class LoginComponent {
   otpMustBeShown = computed(() => this._authService.isOTPNeeded())
 
   login() {
-    // if (this.loginForm.invalid) return;
-    console.log(this.loginForm)
     const loginTemp: Login = {
       mobileNumber: this.loginForm.controls.mobileNumber.value ?? '',
       otpCode: this.loginForm.controls.otpCode.value ?? ''
