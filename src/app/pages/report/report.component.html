@@ -4,37 +4,26 @@
           <table class="w-full text-[#676F7E]">
             <thead>
                 <tr class="border-b border-[#DBDFE6]">
-                  <th class="p-4 text-start">عنوان</th>
-                  <th class="p-4 text-start">توضیحات</th>
-                  <th class="p-4 text-start">وضعیت</th>
+                  <th class="p-4 text-start">شناسه</th>
                   <th class="p-4 text-start">تاریخ ایجاد</th>
-                  <th class="p-4 text-start">عملیات</th>
+                  <th class="p-4 text-start">مرحله</th>
+                  <th class="p-4 text-start">تاریخ تکمیل</th>
+                  <th class="p-4 text-start">وضعیت</th>
                 </tr>
             </thead>
             <tbody>
-            <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
-              <td class="p-4 text-black">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">
-                <span class="badge">تست</span>
-              </td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-            </tr>
-          <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-            </tr>
-          <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-              <td class="p-4">تست</td>
-            </tr>
+              @for (item of reports(); track $index){
+                <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
+                  <td class="p-4 text-black">{{ item.trackingCode }}</td>
+                  <td class="p-4">{{ item.createdAt | jalaliDate }}</td>
+                  <td class="p-4">
+                    <span class="badge">{{ item.currentStep | step }}</span>
+                  </td>
+                  <td class="p-4">{{ item.completedAt | jalaliDate }}</td>
+                  <td class="p-4">{{ item.status === 'FAILED' ? 'تکمیل نشده': 'تکمیل شده' }}</td>
+                </tr>
+
+              }
 
             </tbody>
           </table>
