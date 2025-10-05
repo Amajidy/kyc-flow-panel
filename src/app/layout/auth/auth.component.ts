@@ -14,7 +14,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   private _router = inject(Router);
 
   activeRoute = toSignal(this._router.events.pipe(
@@ -23,8 +23,6 @@ export class AuthComponent implements OnInit {
     startWith(this._router.url), // برای گرفتن URL فعلی حتی قبل از اولین NavigationEnd
     map(route => route.split('/').at(-1))
   ))
-  ngOnInit() {
-  }
 
   changeRoute(route: string){
     this._router.navigateByUrl('auth/' + route);
