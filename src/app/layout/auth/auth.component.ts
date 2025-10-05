@@ -1,30 +1,33 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
-import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
+import {Component, inject, OnInit} from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import {AsyncPipe} from "@angular/common";
+import {filter, map, startWith} from "rxjs";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   imports: [
     RouterOutlet,
-    AsyncPipe
+
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent implements OnInit {
   private _router = inject(Router);
-   _activatedRoute = inject(ActivatedRoute);
 
-  activeRoute: string = this._router.url.split('/').at(-1) ?? 'login';
-  routeStatus = signal<boolean>(this.activeRoute !== 'register');
+  activeRoute = toSignal(this._router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    map((event: NavigationEnd) => event.urlAfterRedirects),
+    startWith(this._router.url), // برای گرفتن URL فعلی حتی قبل از اولین NavigationEnd
+    map(route => route.split('/').at(-1))
+  ))
   ngOnInit() {
-
   }
 
   changeRoute(route: string){
     this._router.navigateByUrl('auth/' + route);
-    this.routeStatus.update((status) => !status);
   }
 
 }

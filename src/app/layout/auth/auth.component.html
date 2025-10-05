@@ -8,7 +8,7 @@
     </p>
     <div class="w-80 tab-container relative flex items-center rounded-lg p-2">
         <div class="absolute w-1/2 bg-white h-3/4 py-2 rounded-lg transition-all"
-          [style.left]="routeStatus() ? '2%' : '48%'"
+          [style.left]="activeRoute() === 'login' ? '2%' : '48%'"
         ></div>
         <div class="w-full text-center z-20 cursor-pointer" (click)="changeRoute('register')">
           <p class="z-20 select-none">ثبت نام</p>
