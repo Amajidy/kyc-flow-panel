@@ -1,6 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet} from "@angular/router";
-import {AsyncPipe} from "@angular/common";
 import {filter, map, startWith} from "rxjs";
 import {toSignal} from "@angular/core/rxjs-interop";
 
