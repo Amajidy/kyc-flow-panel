@@ -16,7 +16,6 @@ export class ReportService {
 
   report() {
     this.reportAction().then(result => {
-      console.log(result)
       this._reports.set(result);
     })
   }

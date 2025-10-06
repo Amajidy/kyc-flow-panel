@@ -5,6 +5,8 @@
             <thead>
                 <tr class="border-b border-[#DBDFE6]">
                   <th class="p-4 text-start">شناسه</th>
+                  <th class="p-4 text-start">نام</th>
+                  <th class="p-4 text-start">نام خوانوادگی</th>
                   <th class="p-4 text-start">تاریخ ایجاد</th>
                   <th class="p-4 text-start">مرحله</th>
                   <th class="p-4 text-start">تاریخ تکمیل</th>
@@ -15,12 +17,20 @@
               @for (item of reports(); track $index){
                 <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
                   <td class="p-4 text-black">{{ item.trackingCode }}</td>
+                  <td class="p-4">{{ item.firstName }}</td>
+                  <td class="p-4">{{ item.lastName }}</td>
                   <td class="p-4">{{ item.createdAt | jalaliDate }}</td>
                   <td class="p-4">
                     <span class="badge">{{ item.currentStep | step }}</span>
                   </td>
                   <td class="p-4">{{ item.completedAt | jalaliDate }}</td>
-                  <td class="p-4">{{ item.status === 'FAILED' ? 'تکمیل نشده': 'تکمیل شده' }}</td>
+                  <td class="p-4">
+                    <div class="flex items-center gap-2">
+                      <div class="h-4 w-4 rounded-full "
+                      [ngClass]="item.isCompleted ? 'bg-green-700' : 'bg-red-600'"></div>
+                      <span>{{ item.isCompleted ? 'تکمیل نشده': 'تکمیل شده' }}</span>
+                    </div>
+                  </td>
                 </tr>
 
               }

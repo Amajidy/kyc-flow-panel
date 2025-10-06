@@ -8,13 +8,12 @@ export class StepPipe implements PipeTransform {
 
   transform(value: string): unknown {
     switch (value) {
-      case 'Step VIDEO':
+      case 'VIDEO':
         return 'ویدئو';
-        case 'Step SHAHKAR':
+        case 'SHAHKAR':
         return 'شاهکار';
-        case 'Step SIGN':
+        case 'SIGN':
         return 'امضاء';
-
     }
     return null;
   }

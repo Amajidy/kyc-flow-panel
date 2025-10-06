@@ -3,6 +3,7 @@ import {ButtonComponent} from "../../componets/button/button.component";
 import {ReportService} from "../../services/reports.service";
 import {JalaliDatePipe} from "../../pipes/jalali-date.pipe";
 import {StepPipe} from "../../pipes/step.pipe";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-report',
@@ -10,7 +11,8 @@ import {StepPipe} from "../../pipes/step.pipe";
   imports: [
     ButtonComponent,
     JalaliDatePipe,
-    StepPipe
+    StepPipe,
+    NgClass
   ],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss'
