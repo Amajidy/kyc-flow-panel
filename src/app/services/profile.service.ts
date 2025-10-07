@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../environment/environment";
 import {firstValueFrom} from "rxjs";
 import {Profile} from "../entities/profile";
+import {ApiResponse} from "../entities/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,13 @@ export class ProfileService {
   profile = signal<Profile | null>(null)
 
   async profileAction() {
-    return await firstValueFrom(this._http.get<Profile>(baseUrl + 'admin/profile'))
+    return await firstValueFrom(this._http.get<ApiResponse<Profile>>(baseUrl + 'admin/profile'))
   }
 
   getProfile() {
     this.profileLoading.set(true);
     this.profileAction().then(profile => {
-      this.profile.set(profile);
+      this.profile.set(profile.result);
     }).finally(() => {
       this.profileLoading.set(false);
     })

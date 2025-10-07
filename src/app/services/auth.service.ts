@@ -1,7 +1,7 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../environment/environment";
-import {Login, LoginResponse, Register} from "../entities/auth";
+import {ApiResponse, Login, LoginResponse, Register} from "../entities/auth";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
 
@@ -49,12 +49,12 @@ export class AuthService {
   }
 
   async loginWithOTPAction(login: Login) {
-    return await firstValueFrom(this._http.post<LoginResponse>(baseUrl + 'auth/company/otp/verify', login))
+    return await firstValueFrom(this._http.post<ApiResponse<string>>(baseUrl + 'auth/company/otp/verify', login))
   }
   loginWithOTP(login: Login) {
     this.isLoginLoading.set(true)
     this.loginWithOTPAction(login).then(res => {
-      this.setToken(res.token);
+      this.setToken(res.result);
       this._router.navigate(['/reports']);
     }).finally(() => {
       this.isLoginLoading.set(true);

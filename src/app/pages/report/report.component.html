@@ -10,7 +10,9 @@
                   <th class="p-4 text-start">تاریخ ایجاد</th>
                   <th class="p-4 text-start">مرحله</th>
                   <th class="p-4 text-start">تاریخ تکمیل</th>
+                  <th class="p-4 text-start">شماره تلفن</th>
                   <th class="p-4 text-start">وضعیت</th>
+                  <th class="p-4 text-start">عملیات</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +26,23 @@
                     <span class="badge">{{ item.currentStep | step }}</span>
                   </td>
                   <td class="p-4">{{ item.completedAt | jalaliDate }}</td>
+                  <td class="p-4">{{ item.mobileNumber }}</td>
                   <td class="p-4">
                     <div class="flex items-center gap-2">
                       <div class="h-4 w-4 rounded-full "
                       [ngClass]="item.isCompleted ? 'bg-green-700' : 'bg-red-600'"></div>
                       <span>{{ item.isCompleted ? 'تکمیل شده': 'تکمیل نشده' }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <app-button class="m-4" size="sm" (click)="openMediaModal(item)">
+                        @if (detailLoading()) {
+                          <div class="spinner spinner--sm"></div>
+                        } @else {
+                          نمایش
+                        }
+                      </app-button>
                     </div>
                   </td>
                 </tr>
@@ -39,3 +53,21 @@
           </table>
     </div>
 </div>
+        <app-modal *ngIf="isUserMediaModalShown() && !detailLoading()" [(visible)]="isUserMediaModalShown" title="My Modal">
+          <div>
+            @for (item of detail(); track $index){
+              @if (item.videoData) {
+                <video
+                  [src]="sanitizer.bypassSecurityTrustResourceUrl(item.videoData)"
+                  controls
+                  width="400">
+                </video>
+              }
+            }
+          </div>
+          <ng-template #modalFooter>
+            <div>
+              footer
+            </div>
+          </ng-template>
+        </app-modal>

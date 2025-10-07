@@ -14,4 +14,5 @@ export class ButtonComponent {
   @Input() type: string = 'button';
   @Input() btnType: 'primary' | 'secondary' = 'primary';
   @Input() disabled: boolean = false;
+  @Input() size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
 }

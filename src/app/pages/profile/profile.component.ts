@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
 import {ProfileService} from "../../services/profile.service";
 import {JalaliDatePipe} from "../../pipes/jalali-date.pipe";
 import {Profile} from "../../entities/profile";
@@ -16,7 +16,8 @@ import {Profile} from "../../entities/profile";
 export class ProfileComponent implements OnInit {
   private _profileService = inject(ProfileService);
   profile = computed(() => this._profileService.profile())
-  isLoading = computed(() => this._profileService.profileLoading())
+  isLoading = computed(() => this._profileService.profileLoading());
+
 
   ngOnInit() {
     this._profileService.getProfile()

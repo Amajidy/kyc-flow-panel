@@ -15,3 +15,9 @@ export interface LoginResponse {
   message: string,
   token: string,
 }
+
+export interface ApiResponse<T> {
+  errors: string | null,
+  message: string,
+  result: T
+}
