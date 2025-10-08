@@ -24,60 +24,54 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class ReportComponent implements OnInit {
   private _reportService = inject(ReportService);
-  sanitizer = inject(DomSanitizer);
   isUserMediaModalShown = signal(false)
-  detail = computed(() => this._reportService._detail())
   detailLoading = computed(() => this._reportService._detailLoading())
-  reports = computed(() => this._reportService._reports())
-  videoUrl = computed(() => {
-    const videoItem = this.detail().find(detail => detail.videoData)
-    if (videoItem) {
-      return this.getVideoUrl(videoItem.videoData)
-    }
-    return '';
+  detail = computed(() => {
+    return this._reportService._detail().map(detail => {
+      return { ...detail,
+        videoData: detail.videoData ? this.base64ToBlob(detail.videoData, "video") : null,
+        signData: detail.signData ? this.base64ToBlob(detail.signData, "image") : null
+      };
+    })
   })
+  reportsLoading = computed(() => this._reportService._reportsLoading())
+  reports = computed(() => this._reportService._reports())
+
+  selectedIndex = signal(-1)
+
   ngOnInit() {
     this._reportService.report()
   }
 
-  // sanitizeVideo() {
-  //   if (this.videoURL()){
-  //     return this.sanitizer.bypassSecurityTrustUrl(this.videoURL()?.videoData)
-  //   }
-  // }
+  base64ToBlob(base64: string, type: 'video' | 'image'): string {
+    // اگر data: داشت، جدا می‌کنیم از قسمت base64
+    const base64Index = base64.indexOf('base64,');
+    const data = base64Index !== -1 ? base64.substring(base64Index + 7) : base64;
 
-  getVideoUrl(data: any): string {
-    console.log(atob(data))
-    // اگر ویدیو base64 باشه
-    if (typeof data === 'string') {
-      // اگه header نداشت اضافه‌اش کن
-      if (!data.startsWith('data:')) {
-        data = `data:video/mp4;base64,${data}`;
-      }
-      return data;
-    }
+    let mimeType = 'application/octet-stream';
+    const match = base64.match(/data:([^;]+);/);
+    if (match) mimeType = match[1];
+    else mimeType = type === 'video' ? 'video/webm' : 'image/png';
 
-    // اگر ویدیو Blob باشه (یا ArrayBuffer)
-    if (data instanceof Blob) {
-      return URL.createObjectURL(data);
-    }
+    try {
+      // تبدیل base64 به بایت‌ها
+      const byteCharacters = atob(data.trim());
+      const byteNumbers = Array.from(byteCharacters, c => c.charCodeAt(0));
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType });
 
-    // اگر به‌صورت بایت‌ آرایه برگشته باشه (بعضی APIها اینجورین)
-    if (data?.type === 'Buffer' && data?.data) {
-      const blob = new Blob([new Uint8Array(data.data)], { type: 'video/mp4' });
       return URL.createObjectURL(blob);
-    }
 
-    return '';
-  }
+    } catch (err) {
+      console.error('❌ Invalid base64 data:', err);
+      console.log('Base64 sample:', base64.slice(0, 100)); // برای دیباگ
+      return '';
+    }
+    }
 
 
   openMediaModal(report: Report) {
     this._reportService.media(report.trackingCode)
     this.isUserMediaModalShown.set(true)
-  }
-
-  returnBLob() {
-
   }
 }

@@ -13,7 +13,6 @@ export const mainInterceptor: HttpInterceptorFn = (req, next) => {
   if (authToken !== undefined) {
     newHeaders['Authorization'] = `Bearer ${authToken}`;
   }
-  console.log('asdads')
   const newReq = req.clone({
     setHeaders: newHeaders
   });

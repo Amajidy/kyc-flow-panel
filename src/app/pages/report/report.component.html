@@ -16,6 +16,19 @@
                 </tr>
             </thead>
             <tbody>
+              @if (reportsLoading()){
+                <tr>
+                  <td colspan="100">
+
+                <div class="text-center p-6">
+                  <div class="spinner spinner--lg"></div>
+
+                </div>
+                  </td>
+                </tr>
+              } @else {
+
+
               @for (item of reports(); track $index){
                 <tr class="border-b border-[#DBDFE6] overflow-hidden p-4 last:border-b-0">
                   <td class="p-4 text-black">{{ item.trackingCode }}</td>
@@ -36,9 +49,9 @@
                   </td>
                   <td>
                     <div>
-                      <app-button class="m-4" size="sm" (click)="openMediaModal(item)">
-                        @if (detailLoading()) {
-                          <div class="spinner spinner--sm"></div>
+                      <app-button class="m-4" size="sm" [disabled]="detailLoading()" classes="flex items-center" (click)="openMediaModal(item); selectedIndex.set($index)">
+                        @if (detailLoading() && selectedIndex() === $index) {
+                          <div class="spinner spinner--sm pt-1"></div>
                         } @else {
                           نمایش
                         }
@@ -48,26 +61,32 @@
                 </tr>
 
               }
-
+              }
             </tbody>
           </table>
     </div>
 </div>
-        <app-modal *ngIf="isUserMediaModalShown() && !detailLoading()" [(visible)]="isUserMediaModalShown" title="My Modal">
-          <div>
+        <app-modal *ngIf="isUserMediaModalShown() && !detailLoading()" [(visible)]="isUserMediaModalShown" title="نمایش فایل">
+          <div class="flex flex-col gap-4 items-center">
             @for (item of detail(); track $index){
               @if (item.videoData) {
                 <video
-                  [src]="sanitizer.bypassSecurityTrustUrl(item.videoData)"
+                  [src]="item.videoData"
                   controls
+                  autoplay
                   width="400">
                 </video>
+              }
+              @if (item.signData){
+                <div class="shadow-2xl ">
+                  <img [src]="item.signData" alt="sign">
+                </div>
               }
             }
           </div>
           <ng-template #modalFooter>
-            <div>
-              footer
+            <div class="flex items-end">
+              <app-button (click)="isUserMediaModalShown.set(false)" size="sm">بستن</app-button>
             </div>
           </ng-template>
         </app-modal>
