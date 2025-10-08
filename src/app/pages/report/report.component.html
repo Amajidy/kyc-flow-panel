@@ -58,7 +58,7 @@
             @for (item of detail(); track $index){
               @if (item.videoData) {
                 <video
-                  [src]="sanitizer.bypassSecurityTrustResourceUrl(item.videoData)"
+                  [src]="sanitizer.bypassSecurityTrustUrl(item.videoData)"
                   controls
                   width="400">
                 </video>

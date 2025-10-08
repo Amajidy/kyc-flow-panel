@@ -32,6 +32,7 @@ export class ReportService {
   media(trackingCode:string) {
     this._detailLoading.set(true);
     this.mediaAction(trackingCode).then(result => {
+      console.log(result);
       this._detail.set(result);
     }).finally(() => this._detailLoading.set(false));
   }
